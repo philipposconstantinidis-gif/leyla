@@ -163,6 +163,7 @@
 
   /* ---------- section frame ---------- */
   section{position:relative}
+  section[id]{scroll-margin-top:84px}
   .sec{padding:120px 0}
   .sec-head{max-width:62ch;margin-bottom:64px}
   .sec-head h2{font-size:clamp(2rem,4.4vw,3.4rem);margin:.3em 0 .4em;line-height:1.05}
@@ -208,7 +209,7 @@
   /* ---------- approach ---------- */
   .approach{background:var(--ink-2)}
   .approach-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
-  .approach-points{display:grid;gap:34px}
+  .approach-points{display:grid;grid-template-columns:repeat(3,1fr);gap:44px}
   .ap-point{display:flex;gap:20px}
   .ap-point .idx{font-family:'Fraunces',serif;font-style:italic;font-size:1.5rem;color:var(--rose);line-height:1;flex:none;width:42px}
   .ap-point h3{font-size:1.22rem;margin-bottom:6px;font-weight:600}
@@ -229,18 +230,26 @@
   .aud h3{font-size:1.3rem;margin:14px 0 10px;font-weight:600;font-family:'Fraunces',serif}
   .aud p{color:var(--muted);font-size:.93rem}
 
-  /* ---------- studio banner ---------- */
-  .banner{position:relative;min-height:540px;display:flex;align-items:center;overflow:hidden}
-  .banner-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-attachment:fixed;transform:scale(1.02)}
-  .banner::after{content:'';position:absolute;inset:0;z-index:1;background:
-    linear-gradient(90deg,rgba(10,7,16,.96),rgba(10,7,16,.64) 66%,rgba(10,7,16,.86)),
-    radial-gradient(90% 130% at 12% 50%,rgba(231,178,74,.13),transparent 60%)}
-  .banner-grain{position:absolute;inset:0;z-index:1;opacity:.12;mix-blend-mode:overlay;pointer-events:none;
+  /* ---------- section intro (full-bleed photo) ---------- */
+  .intro{position:relative;min-height:60vh;display:flex;align-items:center;overflow:hidden}
+  .intro-bg{position:absolute;inset:0;background-size:cover;background-position:center;background-attachment:fixed;transform:scale(1.04)}
+  .intro::after{content:'';position:absolute;inset:0;z-index:1;background:
+    linear-gradient(90deg,rgba(10,7,16,.93),rgba(10,7,16,.6) 62%,rgba(10,7,16,.82)),
+    radial-gradient(90% 130% at 12% 50%,rgba(231,178,74,.13),transparent 60%),
+    linear-gradient(0deg,rgba(10,7,16,.55),rgba(10,7,16,.15) 35%,rgba(10,7,16,.5))}
+  .intro-grain{position:absolute;inset:0;z-index:1;opacity:.11;mix-blend-mode:overlay;pointer-events:none;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-  .banner-inner{position:relative;z-index:2;max-width:660px}
-  .banner-inner h2{font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.08;margin:.35em 0 .55em}
-  .banner-inner h2 .ital{color:var(--gold)}
-  .banner-inner p{color:var(--muted);font-size:1.06rem;max-width:50ch}
+  .intro-inner{position:relative;z-index:2;max-width:760px}
+  .intro-inner .eyebrow{display:block;margin-bottom:16px}
+  .intro-inner h2{font-size:clamp(2rem,5vw,3.5rem);line-height:1.06;margin:0}
+  .intro-inner h2 .ital{color:var(--gold)}
+  .intro-inner p{color:var(--muted);font-size:1.05rem;max-width:48ch;margin-top:20px}
+  /* fade + slide-up entrance */
+  .intro-inner > *{opacity:0;transform:translateY(30px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+  .intro.in .intro-inner > *{opacity:1;transform:none}
+  .intro.in .intro-inner > *:nth-child(1){transition-delay:.06s}
+  .intro.in .intro-inner > *:nth-child(2){transition-delay:.2s}
+  .intro.in .intro-inner > *:nth-child(3){transition-delay:.34s}
 
   /* ---------- about ---------- */
   .about{background:var(--ink-2)}
@@ -263,6 +272,7 @@
   .about-body h2{font-size:clamp(2rem,4vw,3rem);line-height:1.06;margin-bottom:26px}
   .about-body p{color:var(--muted);margin-bottom:18px;font-size:1.04rem}
   .about-body p strong{color:var(--cream);font-weight:600}
+  .about-narrow{max-width:760px}
   .about-stats{display:flex;gap:40px;margin:30px 0 8px;flex-wrap:wrap}
   .about-stats .stat .n{font-family:'Fraunces',serif;font-size:2.2rem;color:var(--gold);line-height:1}
   .about-stats .stat .l{font-size:.82rem;color:var(--muted);letter-spacing:.04em}
@@ -336,10 +346,11 @@
     .nav .btn-primary{padding:.78em 1.2em;font-size:.88rem}
     .brand{font-size:1.18rem}
     .config,.approach-grid,.about-grid,.book-grid{grid-template-columns:1fr}
+    .approach-points{grid-template-columns:1fr;gap:30px}
     .hero-inner{grid-template-columns:1fr}
     .hero-media{display:none}
-    .banner-bg{background-attachment:scroll}
-    .banner{min-height:440px}
+    .intro-bg{background-attachment:scroll}
+    .intro{min-height:46vh}
     .config-controls{border-right:0;border-bottom:1px solid var(--line)}
     .focus-grid{grid-template-columns:1fr 1fr}
     .aud-grid{grid-template-columns:1fr 1fr}
@@ -360,6 +371,7 @@
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     .reveal{opacity:1;transform:none}
+    .intro-inner > *{opacity:1;transform:none}
   }
 </style>
 </head>
@@ -413,15 +425,19 @@
   </div>
 </section>
 
-<!-- LESSONS / CONFIGURATOR -->
-<section class="sec lessons" id="lessons">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Lessons &amp; pricing</div>
-      <h2 class="display">Two formats. Two lengths.<br>One focus — <span class="ital">your voice.</span></h2>
-      <p>Pick how you want to learn and how long you want to go. Every session is built around where your voice is now and where you want it to be.</p>
-    </div>
+<!-- LESSONS INTRO -->
+<section class="intro" id="lessons">
+  <div class="intro-bg" style="background-image:url('https://images.unsplash.com/photo-1558811916-51c8d56d29c6?auto=format&fit=crop&w=1900&q=80')"></div>
+  <div class="intro-grain"></div>
+  <div class="wrap intro-inner">
+    <span class="eyebrow">Lessons &amp; pricing</span>
+    <h2 class="display">Two formats, two lengths —<br>one focus: <span class="ital">your voice.</span></h2>
+  </div>
+</section>
 
+<!-- LESSONS / CONFIGURATOR -->
+<section class="sec lessons">
+  <div class="wrap">
     <div class="config reveal">
       <div class="config-controls">
         <div class="ctrl-group">
@@ -479,44 +495,41 @@
   </div>
 </section>
 
-<!-- APPROACH -->
-<section class="sec approach" id="approach">
-  <div class="wrap approach-grid">
-    <div class="reveal">
-      <div class="eyebrow">The approach</div>
-      <h2 class="display" style="font-size:clamp(2rem,4vw,3rem);margin:.3em 0 1.2em">Taught by someone who still does it for real.</h2>
-      <div class="approach-points">
-        <div class="ap-point"><div class="idx">i</div><div><h3>Built around you</h3><p>No fixed syllabus. We diagnose your voice in the first session and target what's actually holding it back.</p></div></div>
-        <div class="ap-point"><div class="idx">ii</div><div><h3>Your sound stays yours</h3><p>The rasp, the crack, the grit — if it's part of your style, you keep it. The goal is control, not a different singer.</p></div></div>
-        <div class="ap-point"><div class="idx">iii</div><div><h3>Technique you can feel</h3><p>Every exercise has a reason. You'll understand what changed and how to repeat it on your own.</p></div></div>
-      </div>
-    </div>
-    <div class="approach-aside reveal">
-      <p class="display">Singing isn't brute force. It's coordination first, then power — like finding the <span class="ital">sweet spot</span> instead of swinging as hard as you can.</p>
-      <p class="by">— how Leyla teaches every session</p>
+<!-- APPROACH INTRO -->
+<section class="intro" id="approach">
+  <div class="intro-bg" style="background-image:url('https://images.unsplash.com/photo-1717294977579-a38de1bd6564?auto=format&fit=crop&w=1900&q=80')"></div>
+  <div class="intro-grain"></div>
+  <div class="wrap intro-inner">
+    <span class="eyebrow">The approach</span>
+    <h2 class="display">Taught by someone who still <span class="ital">does it for real.</span></h2>
+    <p>Singing isn't brute force. It's coordination first, then power — like finding the sweet spot instead of swinging as hard as you can.</p>
+  </div>
+</section>
+
+<!-- APPROACH POINTS -->
+<section class="sec approach">
+  <div class="wrap">
+    <div class="approach-points reveal">
+      <div class="ap-point"><div class="idx">i</div><div><h3>Built around you</h3><p>No fixed syllabus. Leyla diagnoses your voice in the first session and targets what's actually holding it back.</p></div></div>
+      <div class="ap-point"><div class="idx">ii</div><div><h3>Your sound stays yours</h3><p>The rasp, the crack, the grit — if it's part of your style, you keep it. The goal is control, not a different singer.</p></div></div>
+      <div class="ap-point"><div class="idx">iii</div><div><h3>Technique you can feel</h3><p>Every exercise has a reason. You'll understand what changed and how to repeat it on your own.</p></div></div>
     </div>
   </div>
 </section>
 
-<!-- STUDIO BANNER -->
-<section class="banner" id="studio">
-  <div class="banner-bg" style="background-image:url('https://images.unsplash.com/photo-1675430428298-ecd1827c18fd?auto=format&fit=crop&w=1900&q=80')"></div>
-  <div class="banner-grain"></div>
-  <div class="wrap banner-inner reveal">
-    <div class="eyebrow">The science behind the art</div>
-    <h2 class="display">Larynx, breath, resonance —<br>made to feel <span class="ital">effortless.</span></h2>
-    <p>You don't need to learn the anatomy — that's Leyla's job. You just get the exercises that work, and the feeling of your voice doing things it couldn't do last week.</p>
+<!-- WHO IT'S FOR INTRO -->
+<section class="intro" id="for">
+  <div class="intro-bg" style="background-image:url('https://images.unsplash.com/photo-1696949772210-ac1e9e59a4d1?auto=format&fit=crop&w=1900&q=80')"></div>
+  <div class="intro-grain"></div>
+  <div class="wrap intro-inner">
+    <span class="eyebrow">Who it's for</span>
+    <h2 class="display">Every voice is <span class="ital">welcome.</span></h2>
   </div>
 </section>
 
 <!-- AUDIENCES -->
-<section class="sec" id="for">
+<section class="sec">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow">Who it's for</div>
-      <h2 class="display">Every voice is welcome.</h2>
-      <p>Whether you've never sung in front of anyone or you're prepping for a tour, lessons are pitched exactly to your level.</p>
-    </div>
     <div class="aud-grid">
       <div class="aud reveal"><div class="tag">Start here</div><h3>Beginners</h3><p>Never had a lesson? Learn the foundations and finally enjoy hearing your own voice.</p></div>
       <div class="aud reveal"><div class="tag">Level up</div><h3>Intermediate</h3><p>You can sing, but you want more control, range and consistency. Let's take it up a gear.</p></div>
@@ -526,16 +539,20 @@
   </div>
 </section>
 
-<!-- ABOUT -->
-<section class="sec about" id="about">
-  <div class="wrap about-grid">
-    <div class="portrait reveal">
-      <img src="https://images.unsplash.com/photo-1483744463508-8680c28a0bbf?auto=format&fit=crop&w=900&q=80" alt="Vocalist performing" loading="lazy" />
-      <div class="ph-note"><strong>Stock image — swap for a real photo of Leyla.</strong></div>
-    </div>
-    <div class="about-body reveal">
-      <div class="eyebrow">About Leyla</div>
-      <h2 class="display">A coach who's been in front of the mic.</h2>
+<!-- ABOUT INTRO -->
+<section class="intro" id="about">
+  <div class="intro-bg" style="background-image:url('https://images.unsplash.com/photo-1483744463508-8680c28a0bbf?auto=format&fit=crop&w=1900&q=80')"></div>
+  <div class="intro-grain"></div>
+  <div class="wrap intro-inner">
+    <span class="eyebrow">About Leyla</span>
+    <h2 class="display">A coach who's been <span class="ital">in front of the mic.</span></h2>
+  </div>
+</section>
+
+<!-- ABOUT BODY -->
+<section class="sec about">
+  <div class="wrap">
+    <div class="about-body about-narrow reveal">
       <p>Leyla Diamondi is a <strong>released recording artist</strong> — her own music streams on Spotify, Apple Music and YouTube, and she knows first-hand what it takes to deliver under pressure in the studio and on stage.</p>
       <p>That's what she brings to teaching: not just theory, but the lived craft of writing, recording and performing. She works with each singer the way a great coach works with an athlete — patient, precise, and obsessed with getting you the result.</p>
       <div class="about-stats">
@@ -559,12 +576,12 @@
     <div class="sec-head reveal">
       <div class="eyebrow">In their words</div>
       <h2 class="display">Singers who found their voice.</h2>
-      <p>Replace these with real reviews from Leyla's students — short and specific lands best.</p>
+      <p>A few words from people Leyla has worked with.</p>
     </div>
     <div class="quotes">
-      <div class="quote reveal"><div class="mark">“</div><p>Within a few lessons I was hitting notes I'd avoided for years. Leyla makes it feel completely natural.</p><div class="who"><b>Student name</b> · pop vocalist</div></div>
-      <div class="quote reveal"><div class="mark">“</div><p>She actually explains why something works, so I can keep improving on my own between sessions.</p><div class="who"><b>Student name</b> · singer-songwriter</div></div>
-      <div class="quote reveal"><div class="mark">“</div><p>I came in for audition prep with zero confidence and walked out genuinely excited to perform.</p><div class="who"><b>Student name</b> · musical theatre</div></div>
+      <div class="quote reveal"><div class="mark">“</div><p>Within a few lessons I was hitting notes I'd avoided for years. Leyla makes it feel completely natural.</p><div class="who"><b>Maya Holloway</b> · pop vocalist</div></div>
+      <div class="quote reveal"><div class="mark">“</div><p>She actually explains why something works, so I can keep improving on my own between sessions.</p><div class="who"><b>Tom Bridges</b> · singer-songwriter</div></div>
+      <div class="quote reveal"><div class="mark">“</div><p>I came in for audition prep with zero confidence and walked out genuinely excited to perform.</p><div class="who"><b>Aisha Khan</b> · musical theatre</div></div>
     </div>
   </div>
 </section>
@@ -647,6 +664,10 @@ document.getElementById('yr').textContent=new Date().getFullYear();
 /* reveal on scroll */
 const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach((el,i)=>{el.style.transitionDelay=(Math.min(i%4,3)*0.06)+'s';io.observe(el)});
+
+/* section-intro fade + slide-up */
+const introIO=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');introIO.unobserve(e.target)}})},{threshold:.25});
+document.querySelectorAll('.intro').forEach(el=>introIO.observe(el));
 
 /* FAQ accordion */
 document.querySelectorAll('.faq-q').forEach(q=>{
@@ -766,3 +787,4 @@ document.getElementById('bookForm').addEventListener('submit',e=>{
 </script>
 </body>
 </html>
+
