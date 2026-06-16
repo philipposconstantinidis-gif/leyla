@@ -1,0 +1,6 @@
+# Allow all crawlers — including search engines and AI assistants
+# (Googlebot, Bingbot, GPTBot, ClaudeBot, PerplexityBot, Google-Extended, etc.)
+User-agent: *
+Allow: /
+
+Sitemap: https://singwithleyla.com/sitemap.xml
